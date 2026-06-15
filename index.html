@@ -2,13 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
+    
+    <!-- وسوم المشاركة (Open Graph) -->
+    <meta property="og:title" content="صدقة جارية عن روح المرحوم أحمد محمد أحمد العبسي">
+    <meta property="og:description" content="صدقة جارية، القرآن الكريم وقصص الأنبياء. رحم الله والدي وأسكنه فسيح جناته.">
+    <meta property="og:image" content="https://i.ibb.co/ZRK2DWbj/AHMAD.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <title>صدقة جارية عن روح أحمد العبسي</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; overflow-x: hidden; }
         .header-box { border: 2px solid #D4AF37; padding: 15px; box-shadow: 0 0 15px #D4AF37; margin-bottom: 20px; border-radius: 10px; }
         .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #D4AF37; object-fit: cover; margin-bottom: 10px; }
+        .name-lg { font-size: 22px; color: #D4AF37; margin: 5px 0; }
+        .ayah { font-size: 14px; color: #aaa; margin-top: 5px; font-style: italic; }
         .btn-container { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 20px; }
         .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 12px; cursor: pointer; border-radius: 5px; font-size: 14px; transition: 0.3s; }
         .btn:hover { background: #D4AF37; color: #000; }
@@ -23,10 +33,13 @@
 </head>
 <body>
 
+<audio id="duaAudio" src="dua.mp3"></audio>
+
 <div class="header-box">
     <img src="AHMAD.jpg" alt="أحمد العبسي" class="profile-img">
-    <h3 style="font-size: 16px; margin: 5px 0;">صدقة جارية عن روح والدي</h3>
-    <h2 style="font-size: 22px; color: #D4AF37; margin: 5px 0;">أحمد العبسي</h2>
+    <h3 style="font-size: 16px; margin: 5px 0;">صدقة جارية عن روح المرحوم</h3>
+    <h2 class="name-lg">أحمد محمد أحمد العبسي</h2>
+    <p class="ayah">"كُلُّ نَفْسٍ ذَائِقَةُ الْمَوْتِ"</p>
 </div>
 
 <div class="btn-container">
@@ -89,10 +102,21 @@
         'ajm': { srv: 'server12', path: 'ajm' } 
     };
 
-    function setQari(id, name) { currentQari = id; alert("تم اختيار القارئ: " + name); }
+    function playDua() {
+        const audio = document.getElementById('duaAudio');
+        audio.currentTime = 0;
+        audio.play().catch(e => console.log("Audio play blocked"));
+    }
+
+    function setQari(id, name) { 
+        playDua();
+        currentQari = id; 
+        alert("تم اختيار القارئ: " + name); 
+    }
 
     function openVideo(url) {
-        closeStories(); // إغلاق القائمة فوراً
+        playDua();
+        closeStories();
         document.getElementById('videoFrame').src = url + "?autoplay=1&fs=1";
         document.getElementById('videoModal').style.display = "block";
     }
@@ -102,7 +126,6 @@
         document.getElementById('videoModal').style.display = "none";
     }
 
-    // ... (بقية الكود الخاص بالسور كما هو)
     const container = document.getElementById('surahList');
     const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
 
@@ -111,6 +134,7 @@
         btn.className = 'surah-btn';
         btn.innerText = (index + 1) + ". " + name;
         btn.onclick = () => {
+            playDua();
             let sNum = (index + 1).toString().padStart(3, '0');
             let q = serverMap[currentQari];
             window.open(`https://${q.srv}.mp3quran.net/${q.path}/${sNum}.mp3`, '_blank');
@@ -118,9 +142,9 @@
         container.appendChild(btn);
     });
 
-    function showSurahs() { document.getElementById('surahModal').style.display = "block"; }
+    function showSurahs() { playDua(); document.getElementById('surahModal').style.display = "block"; }
     function closeSurahs() { document.getElementById('surahModal').style.display = "none"; }
-    function showStories() { document.getElementById('storiesModal').style.display = "block"; }
+    function showStories() { playDua(); document.getElementById('storiesModal').style.display = "block"; }
     function closeStories() { document.getElementById('storiesModal').style.display = "none"; }
 </script>
 </body>
