@@ -9,55 +9,50 @@
         body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
         .header-box { border: 2px solid #D4AF37; padding: 15px; box-shadow: 0 0 15px #D4AF37; margin-bottom: 20px; border-radius: 10px; }
         .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #D4AF37; object-fit: cover; margin-bottom: 10px; }
-        
-        .title-sm { font-size: 16px; margin: 5px 0; }
-        .name-lg { font-size: 22px; color: #D4AF37; margin: 5px 0; }
-
         .btn-container { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 20px; }
         .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 12px; cursor: pointer; border-radius: 5px; font-size: 14px; transition: 0.3s; }
         .btn:hover { background: #D4AF37; color: #000; }
-
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; }
+        .modal-content { position: relative; margin: 2% auto; width: 85%; max-width: 500px; background: #000; padding: 20px; border: 1px solid #D4AF37; border-radius: 10px; }
+        .close { position: absolute; top: 5px; left: 10px; cursor: pointer; font-size: 30px; color: #D4AF37; }
         .surah-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
         .surah-btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 8px; cursor: pointer; border-radius: 5px; font-size: 13px; }
-        .surah-btn:hover { background: #D4AF37; color: #000; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; }
-        .modal-content { position: relative; margin: 2% auto; width: 85%; max-width: 450px; background: #000; padding: 15px; border: 1px solid #D4AF37; border-radius: 10px; }
-        .close { position: absolute; top: 5px; left: 10px; cursor: pointer; font-size: 25px; color: #D4AF37; }
-        
-        .visualizer { display: flex; align-items: flex-end; justify-content: center; gap: 3px; height: 30px; margin: 10px 0; }
-        .bar { width: 4px; background: #D4AF37; animation: grow 1s infinite alternate; }
-        @keyframes grow { from { height: 5px; } to { height: 25px; } }
     </style>
 </head>
 <body>
 
 <div class="header-box">
     <img src="AHMAD.jpg" alt="أحمد العبسي" class="profile-img">
-    <h3 class="title-sm">صدقة جارية عن روح والدي</h3>
-    <h2 class="name-lg">أحمد العبسي</h2>
+    <h3 style="font-size: 16px; margin: 5px 0;">صدقة جارية عن روح والدي</h3>
+    <h2 style="font-size: 22px; color: #D4AF37; margin: 5px 0;">أحمد العبسي</h2>
 </div>
 
-<div class="btn-container" id="main-menu">
+<div class="btn-container">
     <button class="btn" onclick="openVideo('https://www.youtube.com/embed/V2Brp_esIVI')">أذكار الصباح</button>
-    <button class="btn" onclick="alert('قريباً')">أذكار المساء</button>
+    <button class="btn" onclick="openVideo('https://www.youtube.com/embed/Iu_LnPAcHM8')">أذكار المساء</button>
     <button class="btn" onclick="alert('قريباً')">الرقية الشرعية</button>
-    <button class="btn" onclick="alert('قريباً')">أدعية للميت</button>
-    <button class="btn" onclick="alert('قريباً')">أدعية للرزق</button>
-    <button class="btn" onclick="alert('قريباً')">قصص الأنبياء</button>
+    <button class="btn" onclick="openVideo('https://www.youtube.com/embed/ERAi06ADAkA')">أدعية للميت</button>
+    <button class="btn" onclick="openVideo('https://www.youtube.com/embed/f6OYaM4xekg')">أدعية للرزق</button>
+    <button class="btn" onclick="showStories()">قصص الأنبياء</button>
     <button class="btn" onclick="showSurahs()">القرآن الكريم</button>
 </div>
 
-<div id="audioPlayerContainer" class="header-box" style="display:none; margin-top:20px;">
-    <h3 id="currentAudioName" style="color:#D4AF37; font-size: 16px;"></h3>
-    <div class="visualizer">
-        <div class="bar" style="animation-delay: 0.1s"></div>
-        <div class="bar" style="animation-delay: 0.3s"></div>
-        <div class="bar" style="animation-delay: 0.5s"></div>
-        <div class="bar" style="animation-delay: 0.3s"></div>
-        <div class="bar" style="animation-delay: 0.1s"></div>
+<!-- نافذة قصص الأنبياء -->
+<div id="storiesModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeStories()">&times;</span>
+        <h3 style="color: #D4AF37;">قصص الأنبياء</h3>
+        <div class="btn-container" style="grid-template-columns: 1fr;">
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/hC-hfDGgMVg')">قصة سيدنا آدم</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/JAtpnL2dzYk')">قصة سيدنا أيوب</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/At7u6PB0f9s')">قصة سيدنا نوح</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/Ga0A0fRDVIk')">قصة حوت سيدنا يونس</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/p9Je6hHiquw')">قصة النمرود وذو القرنين</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/XaU8a02jur4')">قصة سيدنا صالح</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/ru3Un2Pl-M8')">قصة سيدنا إبراهيم</button>
+            <button class="btn" onclick="openVideo('https://www.youtube.com/embed/G-TNN2s6DlA')">فيلم سيدنا يوسف</button>
+        </div>
     </div>
-    <audio id="audioFrame" controls autoplay style="width:100%"></audio>
 </div>
 
 <div id="surahModal" class="modal">
@@ -71,35 +66,41 @@
             <button class="surah-btn" onclick="setQari('ajm', 'العجمي')">العجمي</button>
         </div>
         <hr style="border: 0; border-top: 1px solid #D4AF37; margin: 15px 0;">
-        <h3 style="color: #D4AF37;">قائمة السور</h3>
         <div id="surahList" class="surah-grid"></div>
     </div>
 </div>
 
 <script>
+    // تحديث مسارات القراء الصحيحة
     let currentQari = 'afs';
-    const serverMap = { 'afs': 'server8', 'maher': 'server11', 'sds': 'server11', 'ajm': 'server12' };
-    const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
+    const serverMap = { 
+        'afs': { srv: 'server8', path: 'afs' }, 
+        'maher': { srv: 'server11', path: 'maher' }, 
+        'sds': { srv: 'server11', path: 'sds' }, 
+        'ajm': { srv: 'server12', path: 'ajm' } 
+    };
 
-    function setQari(id, name) { currentQari = id; alert("تم اختيار: " + name); }
+    function setQari(id, name) { currentQari = id; alert("تم اختيار القارئ: " + name); }
 
     const container = document.getElementById('surahList');
+    const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
+
     surahNames.forEach((name, index) => {
         const btn = document.createElement('button');
         btn.className = 'surah-btn';
         btn.innerText = (index + 1) + ". " + name;
         btn.onclick = () => {
             let sNum = (index + 1).toString().padStart(3, '0');
-            document.getElementById('audioFrame').src = `https://${serverMap[currentQari]}.mp3quran.net/${currentQari}/${sNum}.mp3`;
-            document.getElementById('currentAudioName').innerText = name;
-            document.getElementById('audioPlayerContainer').style.display = "block";
-            closeSurahs();
+            let q = serverMap[currentQari];
+            window.open(`https://${q.srv}.mp3quran.net/${q.path}/${sNum}.mp3`, '_blank');
         };
         container.appendChild(btn);
     });
 
     function showSurahs() { document.getElementById('surahModal').style.display = "block"; }
     function closeSurahs() { document.getElementById('surahModal').style.display = "none"; }
+    function showStories() { document.getElementById('storiesModal').style.display = "block"; }
+    function closeStories() { document.getElementById('storiesModal').style.display = "none"; }
     function openVideo(url) { window.open(url, '_blank'); }
 </script>
 </body>
