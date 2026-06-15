@@ -6,32 +6,27 @@
     <meta name="theme-color" content="#000000">
     <title>صدقة جارية عن روح أحمد العبسي</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
-        .header-box { border: 2px solid #D4AF37; padding: 20px; box-shadow: 0 0 15px #D4AF37; margin-bottom: 30px; border-radius: 10px; }
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #D4AF37; object-fit: cover; margin-bottom: 15px; box-shadow: 0 0 10px #D4AF37; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
+        .header-box { border: 2px solid #D4AF37; padding: 15px; box-shadow: 0 0 15px #D4AF37; margin-bottom: 20px; border-radius: 10px; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #D4AF37; object-fit: cover; margin-bottom: 10px; }
         
-        /* تصغير الخط */
-        .title-sm { font-size: 18px; margin: 5px 0; }
-        .name-lg { font-size: 24px; color: #D4AF37; margin: 5px 0; }
+        .title-sm { font-size: 16px; margin: 5px 0; }
+        .name-lg { font-size: 22px; color: #D4AF37; margin: 5px 0; }
 
-        .btn-container { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 20px; }
-        .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: 0.3s; }
+        .btn-container { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 20px; }
+        .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 12px; cursor: pointer; border-radius: 5px; font-size: 14px; transition: 0.3s; }
         .btn:hover { background: #D4AF37; color: #000; }
 
-        .surah-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .surah-btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 10px; cursor: pointer; border-radius: 5px; font-size: 14px; }
+        .surah-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .surah-btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 8px; cursor: pointer; border-radius: 5px; font-size: 13px; }
         .surah-btn:hover { background: #D4AF37; color: #000; }
 
-        .counter-box { background: #111; border: 2px solid #D4AF37; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-        #count { font-size: 40px; color: #D4AF37; display: block; margin: 10px 0; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; }
-        .modal-content { position: relative; margin: 5% auto; width: 90%; max-width: 600px; background: #000; padding: 20px; border: 1px solid #D4AF37; border-radius: 10px; max-height: 80vh; overflow-y: auto; }
-        .close { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 30px; color: #D4AF37; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; }
+        .modal-content { position: relative; margin: 2% auto; width: 85%; max-width: 450px; background: #000; padding: 15px; border: 1px solid #D4AF37; border-radius: 10px; }
+        .close { position: absolute; top: 5px; left: 10px; cursor: pointer; font-size: 25px; color: #D4AF37; }
         
-        /* التذبذب الصوتي */
         .visualizer { display: flex; align-items: flex-end; justify-content: center; gap: 3px; height: 30px; margin: 10px 0; }
-        .bar { width: 5px; background: #D4AF37; animation: grow 1s infinite alternate; }
+        .bar { width: 4px; background: #D4AF37; animation: grow 1s infinite alternate; }
         @keyframes grow { from { height: 5px; } to { height: 25px; } }
     </style>
 </head>
@@ -41,13 +36,6 @@
     <img src="AHMAD.jpg" alt="أحمد العبسي" class="profile-img">
     <h3 class="title-sm">صدقة جارية عن روح والدي</h3>
     <h2 class="name-lg">أحمد العبسي</h2>
-</div>
-
-<div class="counter-box">
-    <span style="font-size: 18px;">المسبحة الإلكترونية</span>
-    <span id="count">0</span>
-    <button class="btn" onclick="increment()">اضغط للتسبيح</button>
-    <button class="btn" onclick="reset()" style="border-color: #555; color: #fff;">تصفير</button>
 </div>
 
 <div class="btn-container" id="main-menu">
@@ -60,15 +48,14 @@
     <button class="btn" onclick="showSurahs()">القرآن الكريم</button>
 </div>
 
-<!-- المشغل الصوتي -->
-<div id="audioPlayerContainer" class="counter-box" style="display:none; margin-top:20px;">
-    <h3 id="currentAudioName" style="color:#D4AF37;"></h3>
+<div id="audioPlayerContainer" class="header-box" style="display:none; margin-top:20px;">
+    <h3 id="currentAudioName" style="color:#D4AF37; font-size: 16px;"></h3>
     <div class="visualizer">
         <div class="bar" style="animation-delay: 0.1s"></div>
-        <div class="bar" style="animation-delay: 0.2s"></div>
         <div class="bar" style="animation-delay: 0.3s"></div>
-        <div class="bar" style="animation-delay: 0.4s"></div>
         <div class="bar" style="animation-delay: 0.5s"></div>
+        <div class="bar" style="animation-delay: 0.3s"></div>
+        <div class="bar" style="animation-delay: 0.1s"></div>
     </div>
     <audio id="audioFrame" controls autoplay style="width:100%"></audio>
 </div>
@@ -76,26 +63,25 @@
 <div id="surahModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeSurahs()">&times;</span>
-        <h2 style="color: #D4AF37;">اختر القارئ</h2>
-        <div class="btn-container" style="grid-template-columns: repeat(4, 1fr);">
+        <h3 style="color: #D4AF37;">اختر القارئ</h3>
+        <div class="btn-container" style="grid-template-columns: repeat(2, 1fr);">
             <button class="surah-btn" onclick="setQari('afs', 'العفاسي')">العفاسي</button>
             <button class="surah-btn" onclick="setQari('maher', 'المعيقلي')">المعيقلي</button>
             <button class="surah-btn" onclick="setQari('sds', 'السديس')">السديس</button>
             <button class="surah-btn" onclick="setQari('ajm', 'العجمي')">العجمي</button>
         </div>
-        <hr style="border: 0; border-top: 1px solid #D4AF37; margin: 20px 0;">
-        <h2 style="color: #D4AF37;">قائمة سور القرآن</h2>
+        <hr style="border: 0; border-top: 1px solid #D4AF37; margin: 15px 0;">
+        <h3 style="color: #D4AF37;">قائمة السور</h3>
         <div id="surahList" class="surah-grid"></div>
     </div>
 </div>
 
 <script>
     let currentQari = 'afs';
-    // خريطة السيرفرات الصحيحة
-    const servers = { 'afs': 'server8', 'maher': 'server11', 'sds': 'server11', 'ajm': 'server8' };
+    const serverMap = { 'afs': 'server8', 'maher': 'server11', 'sds': 'server11', 'ajm': 'server12' };
     const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
 
-    function setQari(id, name) { currentQari = id; alert("تم اختيار القارئ: " + name); }
+    function setQari(id, name) { currentQari = id; alert("تم اختيار: " + name); }
 
     const container = document.getElementById('surahList');
     surahNames.forEach((name, index) => {
@@ -104,18 +90,14 @@
         btn.innerText = (index + 1) + ". " + name;
         btn.onclick = () => {
             let sNum = (index + 1).toString().padStart(3, '0');
-            let server = servers[currentQari];
-            document.getElementById('audioFrame').src = `https://${server}.mp3quran.net/${currentQari}/${sNum}.mp3`;
-            document.getElementById('currentAudioName').innerText = "تستمع إلى: " + name;
+            document.getElementById('audioFrame').src = `https://${serverMap[currentQari]}.mp3quran.net/${currentQari}/${sNum}.mp3`;
+            document.getElementById('currentAudioName').innerText = name;
             document.getElementById('audioPlayerContainer').style.display = "block";
             closeSurahs();
         };
         container.appendChild(btn);
     });
 
-    let counter = 0;
-    function increment() { counter++; document.getElementById('count').innerText = counter; }
-    function reset() { counter = 0; document.getElementById('count').innerText = 0; }
     function showSurahs() { document.getElementById('surahModal').style.display = "block"; }
     function closeSurahs() { document.getElementById('surahModal').style.display = "none"; }
     function openVideo(url) { window.open(url, '_blank'); }
