@@ -2,42 +2,67 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
     <title>صدقة جارية عن روح أحمد العبسي</title>
     <style>
-        body { font-family: 'Arial', sans-serif; text-align: center; padding: 50px; background-color: #f4f4f9; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; }
-        .dua { font-size: 20px; color: #555; margin-top: 20px; font-style: italic; }
-        .quran { font-size: 24px; color: #000; margin: 30px 0; font-weight: bold; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
+        
+        .header-box { 
+            border: 2px solid #D4AF37; 
+            padding: 20px; 
+            box-shadow: 0 0 15px #D4AF37; 
+            margin-bottom: 30px; 
+            border-radius: 10px;
+        }
+
+        .btn-container { display: grid; gap: 15px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 20px; }
+        .btn { 
+            background: #111; border: 1px solid #D4AF37; color: #D4AF37; 
+            padding: 15px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: 0.3s;
+        }
+        .btn:hover { background: #D4AF37; color: #000; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; }
+        .modal-content { position: relative; margin: 10% auto; width: 90%; max-width: 600px; }
+        .close { position: absolute; top: -40px; right: 0; cursor: pointer; font-size: 40px; color: #D4AF37; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="header-box">
     <h1>صدقة جارية عن روح والدي</h1>
     <h2>أحمد العبسي</h2>
-    
-    <div class="quran" id="quran">
-        "بسم الله الرحمن الرحيم"
-    </div>
-    
-    <div class="dua" id="dua">
-        اللهم اغفر لأحمد العبسي وارحمه، وأسكنه فسيح جناتك.
-    </div>
+</div>
 
-    <button onclick="changeDua()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer;">دعاء آخر</button>
+<div class="btn-container" id="main-menu">
+    <!-- هنا الرابط الخاص بك -->
+    <button class="btn" onclick="openVideo('https://www.youtube.com/embed/V2Brp_esIVI')">أذكار الصباح</button>
+    <button class="btn" onclick="alert('زر أذكار المساء')">أذكار المساء</button>
+    <button class="btn" onclick="alert('زر الرقية الشرعية')">الرقية الشرعية</button>
+    <button class="btn" onclick="showSurahs()">القرآن الكريم</button>
+</div>
+
+<!-- مشغل الفيديو -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeVideo()">&times;</span>
+        <iframe id="videoFrame" width="100%" height="350" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
 </div>
 
 <script>
-    function changeDua() {
-        const prayers = [
-            "اللهم اجعل القرآن الكريم نوراً في قبر أحمد العبسي.",
-            "اللهم ارحم أحمد العبسي واغفر له، وارفع درجته في المهديين.",
-            "اللهم طيب ثرى أحمد العبسي، وأكرم مثواه."
-        ];
-        document.getElementById('dua').innerText = prayers[Math.floor(Math.random() * prayers.length)];
+    function openVideo(url) {
+        document.getElementById('videoFrame').src = url;
+        document.getElementById('videoModal').style.display = "block";
+    }
+    function closeVideo() {
+        document.getElementById('videoFrame').src = "";
+        document.getElementById('videoModal').style.display = "none";
+    }
+    function showSurahs() {
+        alert("هنا ستظهر قائمة السور لاحقاً");
     }
 </script>
-
 </body>
 </html>
