@@ -7,55 +7,46 @@
     <title>صدقة جارية عن روح أحمد العبسي</title>
     <style>
         body { background-color: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; text-align: center; }
+        .header-box { border: 2px solid #D4AF37; padding: 20px; box-shadow: 0 0 15px #D4AF37; margin-bottom: 30px; border-radius: 10px; }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #D4AF37; object-fit: cover; margin-bottom: 15px; box-shadow: 0 0 10px #D4AF37; }
         
-        .header-box { 
-            border: 2px solid #D4AF37; 
-            padding: 20px; 
-            box-shadow: 0 0 15px #D4AF37; 
-            margin-bottom: 30px; 
-            border-radius: 10px;
-        }
-
-        /* تنسيق الصورة */
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #D4AF37;
-            object-fit: cover;
-            margin-bottom: 15px;
-            box-shadow: 0 0 10px #D4AF37;
-        }
-
         .btn-container { display: grid; gap: 15px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 20px; }
-        .btn { 
-            background: #111; border: 1px solid #D4AF37; color: #D4AF37; 
-            padding: 15px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: 0.3s;
-        }
+        .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: 0.3s; }
         .btn:hover { background: #D4AF37; color: #000; }
 
+        .counter-box { background: #111; border: 2px solid #D4AF37; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        #count { font-size: 40px; color: #D4AF37; display: block; margin: 10px 0; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; }
-        .modal-content { position: relative; margin: 10% auto; width: 90%; max-width: 600px; }
-        .close { position: absolute; top: -40px; right: 0; cursor: pointer; font-size: 40px; color: #D4AF37; }
+        .modal-content { position: relative; margin: 5% auto; width: 90%; max-width: 600px; background: #000; padding: 20px; border: 1px solid #D4AF37; border-radius: 10px; max-height: 80vh; overflow-y: auto; }
+        .close { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 30px; color: #D4AF37; }
     </style>
 </head>
 <body>
 
 <div class="header-box">
-    <!-- الصورة المضافة -->
     <img src="AHMAD.jpg" alt="أحمد العبسي" class="profile-img">
     <h1>صدقة جارية عن روح والدي</h1>
     <h2>أحمد العبسي</h2>
 </div>
 
+<div class="counter-box">
+    <span style="font-size: 18px;">المسبحة الإلكترونية</span>
+    <span id="count">0</span>
+    <button class="btn" onclick="increment()">اضغط للتسبيح</button>
+    <button class="btn" onclick="reset()" style="border-color: #555; color: #fff;">تصفير</button>
+</div>
+
 <div class="btn-container" id="main-menu">
     <button class="btn" onclick="openVideo('https://www.youtube.com/embed/V2Brp_esIVI')">أذكار الصباح</button>
-    <button class="btn" onclick="alert('زر أذكار المساء')">أذكار المساء</button>
-    <button class="btn" onclick="alert('زر الرقية الشرعية')">الرقية الشرعية</button>
+    <button class="btn" onclick="openVideo('رابط_يوتيوب')">أذكار المساء</button>
+    <button class="btn" onclick="openVideo('رابط_يوتيوب')">الرقية الشرعية</button>
+    <button class="btn" onclick="openVideo('رابط_يوتيوب')">أدعية للميت</button>
+    <button class="btn" onclick="openVideo('رابط_يوتيوب')">أدعية للرزق</button>
+    <button class="btn" onclick="openVideo('رابط_يوتيوب')">قصص الأنبياء</button>
     <button class="btn" onclick="showSurahs()">القرآن الكريم</button>
 </div>
 
-<!-- مشغل الفيديو -->
 <div id="videoModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeVideo()">&times;</span>
@@ -63,7 +54,22 @@
     </div>
 </div>
 
+<div id="surahModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSurahs()">&times;</span>
+        <h2 style="color: #D4AF37;">قائمة السور</h2>
+        <div class="btn-container">
+            <button class="btn" onclick="openVideo('رابط_الفاتحة')">سورة الفاتحة</button>
+            <button class="btn" onclick="openVideo('رابط_البقرة')">سورة البقرة</button>
+            </div>
+    </div>
+</div>
+
 <script>
+    let counter = 0;
+    function increment() { counter++; document.getElementById('count').innerText = counter; }
+    function reset() { counter = 0; document.getElementById('count').innerText = 0; }
+
     function openVideo(url) {
         document.getElementById('videoFrame').src = url;
         document.getElementById('videoModal').style.display = "block";
@@ -72,9 +78,8 @@
         document.getElementById('videoFrame').src = "";
         document.getElementById('videoModal').style.display = "none";
     }
-    function showSurahs() {
-        alert("هنا ستظهر قائمة السور لاحقاً");
-    }
+    function showSurahs() { document.getElementById('surahModal').style.display = "block"; }
+    function closeSurahs() { document.getElementById('surahModal').style.display = "none"; }
 </script>
 </body>
 </html>
