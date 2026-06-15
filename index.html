@@ -14,7 +14,6 @@
         .btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 15px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: 0.3s; }
         .btn:hover { background: #D4AF37; color: #000; }
 
-        /* تعديل خاص لقائمة السور (عمودين فقط) */
         .surah-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .surah-btn { background: #111; border: 1px solid #D4AF37; color: #D4AF37; padding: 10px; cursor: pointer; border-radius: 5px; font-size: 14px; }
         .surah-btn:hover { background: #D4AF37; color: #000; }
@@ -52,61 +51,55 @@
     <button class="btn" onclick="showSurahs()">القرآن الكريم</button>
 </div>
 
-<div id="videoModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeVideo()">&times;</span>
-        <iframe id="videoFrame" width="100%" height="350" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
+<!-- المشغل الصوتي الظاهر -->
+<div id="audioPlayerContainer" class="counter-box" style="display:none; margin-top:20px;">
+    <h3 id="currentAudioName" style="color:#D4AF37;"></h3>
+    <audio id="audioFrame" controls autoplay style="width:100%"></audio>
 </div>
 
 <div id="surahModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeSurahs()">&times;</span>
+        <h2 style="color: #D4AF37;">اختر القارئ</h2>
+        <div class="btn-container" style="grid-template-columns: repeat(4, 1fr);">
+            <button class="surah-btn" onclick="setQari('afs', 'العفاسي')">العفاسي</button>
+            <button class="surah-btn" onclick="setQari('maher', 'المعيقلي')">المعيقلي</button>
+            <button class="surah-btn" onclick="setQari('sds', 'السديس')">السديس</button>
+            <button class="surah-btn" onclick="setQari('ajm', 'العجمي')">العجمي</button>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #D4AF37; margin: 20px 0;">
         <h2 style="color: #D4AF37;">قائمة سور القرآن</h2>
-        <div id="surahList" class="surah-grid">
-            </div>
+        <div id="surahList" class="surah-grid"></div>
     </div>
 </div>
 
 <script>
-    // قائمة السور
-    const surahNames = [
-        "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
-        "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
-        "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
-        "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
-        "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
-        "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
-        "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
-        "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
-        "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
-        "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
-        "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
-        "المسد", "الإخلاص", "الفلق", "الناس"
-    ];
+    let currentQari = 'afs';
+    const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
 
-    // إضافة الأزرار برمجياً
+    function setQari(id, name) { currentQari = id; alert("تم اختيار القارئ: " + name); }
+
     const container = document.getElementById('surahList');
     surahNames.forEach((name, index) => {
         const btn = document.createElement('button');
         btn.className = 'surah-btn';
         btn.innerText = (index + 1) + ". " + name;
-        btn.onclick = () => openVideo('https://www.youtube.com/embed/PLACEHOLDER_ID'); // ضع معرف الفيديو هنا
+        btn.onclick = () => {
+            let sNum = (index + 1).toString().padStart(3, '0');
+            document.getElementById('audioFrame').src = `https://server8.mp3quran.net/${currentQari}/${sNum}.mp3`;
+            document.getElementById('currentAudioName').innerText = "تستمع إلى سورة: " + name;
+            document.getElementById('audioPlayerContainer').style.display = "block";
+            closeSurahs();
+        };
         container.appendChild(btn);
     });
 
-    // الدوال الأساسية
     let counter = 0;
     function increment() { counter++; document.getElementById('count').innerText = counter; }
     function reset() { counter = 0; document.getElementById('count').innerText = 0; }
-
-    function openVideo(url) {
-        document.getElementById('videoFrame').src = url;
-        document.getElementById('videoModal').style.display = "block";
-    }
-    function closeVideo() { document.getElementById('videoFrame').src = ""; document.getElementById('videoModal').style.display = "none"; }
     function showSurahs() { document.getElementById('surahModal').style.display = "block"; }
     function closeSurahs() { document.getElementById('surahModal').style.display = "none"; }
+    function openVideo(url) { window.open(url, '_blank'); } // تم تعديلها لفتح يوتيوب خارجي لضمان توافق الصوت
 </script>
 </body>
 </html>
