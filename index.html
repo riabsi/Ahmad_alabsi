@@ -16,6 +16,17 @@
             border-radius: 10px;
         }
 
+        /* تنسيق الصورة */
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #D4AF37;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+
         .btn-container { display: grid; gap: 15px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 20px; }
         .btn { 
             background: #111; border: 1px solid #D4AF37; color: #D4AF37; 
@@ -31,12 +42,13 @@
 <body>
 
 <div class="header-box">
+    <!-- الصورة المضافة -->
+    <img src="AHMAD.jpg" alt="أحمد العبسي" class="profile-img">
     <h1>صدقة جارية عن روح والدي</h1>
     <h2>أحمد العبسي</h2>
 </div>
 
 <div class="btn-container" id="main-menu">
-    <!-- هنا الرابط الخاص بك -->
     <button class="btn" onclick="openVideo('https://www.youtube.com/embed/V2Brp_esIVI')">أذكار الصباح</button>
     <button class="btn" onclick="alert('زر أذكار المساء')">أذكار المساء</button>
     <button class="btn" onclick="alert('زر الرقية الشرعية')">الرقية الشرعية</button>
